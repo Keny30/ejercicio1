@@ -40,37 +40,90 @@ namespace UPITarea1progra2
 
 
         }
+  
 
         public static void Ejercicio1()
         {
             float precio = 0f;
             int cantidad = 0;
             float total = 0f;
+            float descuentoTotal = 0f;
+            float descuento= 0f;
 
             Console.WriteLine("Digite el precio de la camisa");
             precio = float.Parse(Console.ReadLine());
             Console.WriteLine("Digite la cantidad");
             cantidad = int.Parse(Console.ReadLine());
 
+            descuento = calcularDescuento(cantidad);
+
+            descuentoTotal = (cantidad * precio) * descuento;
+            total = (cantidad * precio) - descuentoTotal;
+
+            Console.WriteLine($"total a pagar: {total} con descuento de {descuento}%");   
+        }
+        public static float calcularDescuento(float cantidad)
+        {
+            float  descuento = 0f;
+
             if (cantidad == 1)
             {
-                Console.WriteLine($"total a pagar: {cantidad * precio}");
+                descuento = 0f;
             }
 
             else if (cantidad > 1 && cantidad < 6)
             {
-                total = (cantidad * precio) * 0.15f;
-                total = (cantidad * precio) - total;
-                Console.WriteLine($"total a pagar: {total} con descuento de 15%");
+                descuento = 0.15f;
             }
 
             else if (cantidad <= 6)
             {
-                total = (cantidad * precio) * 0.20f;
-                total = (cantidad * precio) - total;
-                Console.WriteLine($"total a pagar: {total} con descuento de 20%");
+                descuento = 0.20f;
             }
+            return descuento;
         }
+        public static float calcularPromedios(float nota1, float nota2, float nota3)
+        {
+            float resultado = (nota1 + nota2 + nota3) / 3;
+            
+            return resultado;
+        }
+        public static float calcularPorcentaje(float notaPromedio, float valorPorcentual)
+        {
+            float resultado = (notaPromedio * valorPorcentual) / 100;
+
+            return resultado;
+        }
+        public static float calcularNotaFinal(float nota1, float nota2,float nota3)
+        {
+            float resultado = (nota1 + nota2 + nota3);
+
+            return resultado;
+        }
+        public static string obtenerCondicionEstudiante(float notaFinal)
+        {
+            string estado = string.Empty;
+
+            if (notaFinal >= 70)
+            {
+                estado = "APROBADO";
+            }
+
+            else if (notaFinal >= 50 && notaFinal < 70)
+            {
+                estado = "APLAZADO";
+            }
+
+            else if (notaFinal < 50)
+            {
+                estado = "REPROBADO";
+
+            }
+
+            return estado;
+
+        }
+
         public static void Ejercicio2()
         {
 
@@ -88,9 +141,6 @@ namespace UPITarea1progra2
             float promedioquiz = 0f;
             float promediotarea = 0f;
             float promedioexamenes = 0f;
-
-
-
 
 
             Console.WriteLine("Digite el nombre del estudiante");
@@ -116,39 +166,25 @@ namespace UPITarea1progra2
             Console.WriteLine("Digite la nota del tercer examen");
             exam3 = float.Parse(Console.ReadLine());
 
-            promedioquiz = (quiz1 + quiz2 + quiz3) / 3;
-            promediotarea = (tarea1 + tarea2 + tarea3) / 3;
-            promedioexamenes = (exam1 + exam2 + exam3) / 3;
+            promedioquiz = calcularPromedios(quiz1, quiz2, quiz3);
+            promediotarea = calcularPromedios(tarea1, tarea2 , tarea3);
+            promedioexamenes = calcularPromedios(exam1 ,exam2 ,exam3);
 
             float ponderado1 = 0;
             float ponderado2 = 0;
             float ponderado3 = 0;
 
-            ponderado1 = (promedioquiz * 25) / 100;
-            ponderado2 = (promediotarea * 30) / 100;
-            ponderado3 = (promedioexamenes * 45) / 100;
+            ponderado1 = calcularPorcentaje(promedioquiz,25);
+            ponderado2 = calcularPorcentaje(promediotarea, 30);
+            ponderado3 = calcularPorcentaje(promedioexamenes, 45);
 
             float notafinal = 0;
 
-            notafinal = (ponderado1 + ponderado2 + ponderado3);
+            notafinal = calcularNotaFinal(ponderado1 ,ponderado2 ,ponderado3);
 
             string estado = string.Empty;
-
-         if (notafinal >= 70)
-                        {
-                            estado = "APROBADO";
-                        }
-
-                        else if (notafinal >= 50 && notafinal< 70)
-                        {
-                            estado = "APLAZADO";
-                        }
-
-                        else if (notafinal < 50)
-                        {
-                            estado = "REPROBADO";
-               
-                        }
+                   estado = obtenerCondicionEstudiante(notafinal);
+        
 
             Console.WriteLine("Estudiante: " + nombre);
             Console.WriteLine("Carnet: " + id);
@@ -171,18 +207,17 @@ namespace UPITarea1progra2
 
             if (Cantidad_Productos <= 10)
             {
-                Console.WriteLine("El precio por producto es de: $20");
-                Console.WriteLine($"Total a pagar: $ {Cantidad_Productos * 20}");
-            }
-
-            else if (Cantidad_Productos > 10)
+                precio = 20;
+                Total = Cantidad_Productos * precio;
+            }else if (Cantidad_Productos > 10)
             {
-                Console.WriteLine("El precio por producto es de: $15");
-                Console.WriteLine($"total a pagar: $ {Cantidad_Productos * 15}");
+                precio = 15;
+                Total = Cantidad_Productos * precio;
             }
+            Console.WriteLine($"El precio por producto es de: ${precio}");
+            Console.WriteLine($"Total a pagar: $ {Total}");
 
-            
-         
+
         }
 
     }
